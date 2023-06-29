@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { trpc } from './index';
 import RecipeDetails from './recipedetails';
-
+import "./design.css"
+import HeaderCartButton from './components/HeaderCartButton';
 
 
 const App = () => {
@@ -86,6 +87,11 @@ const App = () => {
 
   return (
     <div>
+    <header className="header">
+        <h1 style={{fontFamily: "Poppins, sans-serif",fontSize:"2em"}}>ReactMeals</h1>
+        <HeaderCartButton/>
+    </header>
+      <div>
       <h4>Ingredients</h4>
       <table>
         <thead>
@@ -117,6 +123,7 @@ const App = () => {
           ))}
         </tbody>
       </table>
+      </div>
 
       <h4>Update/Add Ingredients</h4>
       <form onSubmit={handleFormSubmit}>

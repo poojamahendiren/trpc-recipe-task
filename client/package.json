@@ -18,6 +18,7 @@
     "vite": "^4.3.9"
   },
   "devDependencies": {
+    "@types/node": "^20.3.2",
     "nodemon": "^2.0.22"
   }
 }

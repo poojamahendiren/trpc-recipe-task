@@ -26,6 +26,7 @@ model Recipe {
   description        String
   cookingInstructions String
   ingredients        Ingredient[]
+  price              Float       @default(0.0)
   customerId         Int
   customer           Customer    @relation(fields: [customerId], references: [id])
 }
