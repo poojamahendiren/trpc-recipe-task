@@ -9,12 +9,13 @@ const Checkout = (props) => {
     name: true,
     street: true,
     city: true,
-    postal: true,
+    postalCode: true,
+    
   });
 
   const nameInputRef = useRef();
   const streetInputRef = useRef();
-  const postalInputRef = useRef();
+  const postalCodeInputRef = useRef();
   const cityInputRef = useRef();
 
   const confirmHandler = (event) => {
@@ -22,19 +23,19 @@ const Checkout = (props) => {
 
     const enteredName = nameInputRef.current.value;
     const enteredStreet = streetInputRef.current.value;
-    const enteredPostal = postalInputRef.current.value;
+    const enteredPostalCode = postalCodeInputRef.current.value;
     const enteredCity = cityInputRef.current.value;
 
     const enteredNameIsValid = !isEmpty(enteredName);
     const enteredStreetIsValid = !isEmpty(enteredStreet);
     const enteredPostalIsValid =
-      !isEmpty(enteredPostal) && isFiveChars(enteredPostal);
+      !isEmpty(enteredPostalCode) && isFiveChars(enteredPostalCode);
     const enteredCityIsValid = !isEmpty(enteredCity);
 
     setFormInputsValidity({
       name: enteredNameIsValid,
       street: enteredStreetIsValid,
-      postal: enteredPostalIsValid,
+      postalCode: enteredPostalIsValid,
       city: enteredCityIsValid,
     });
 
@@ -51,7 +52,7 @@ const Checkout = (props) => {
     props.onConfirm({
       name: enteredName,
       street: enteredStreet,
-      postal: enteredPostal,
+      postalCode: enteredPostalCode,
       city: enteredCity,
     });
   };
@@ -70,7 +71,7 @@ const Checkout = (props) => {
       </div>
       <div  className={`${formInputsValidity.postal ? '' : 'invalid'}`}>
         <label htmlFor='postal'>Postal Code</label><br/>
-        <input type='text' id='postal' ref={postalInputRef} className="checkout"/>
+        <input type='text' id='postal' ref={postalCodeInputRef} className="checkout"/>
         {!formInputsValidity.postal && (
           <p>Please enter a valid postal code (5 characters long).</p>
         )}

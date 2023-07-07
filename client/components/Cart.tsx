@@ -1,12 +1,12 @@
-
-
 import React, { useContext, useState } from 'react';
 import Modal from '../layoutComponents/Modal';
+import { createRoot } from 'react-dom/client';
 import CartItem from './CartItem';
 import CartContext from './cart-context';
 import Checkout from './Checkout';
 
 import './cart.css';
+import { trpc } from '../index';
 
 const Cart = (props) => {
   const [isCheckout, setIsCheckout] = useState(false);
@@ -31,16 +31,25 @@ const Cart = (props) => {
 
   const submitOrderHandler = async (userData) => {
     setIsSubmitting(true);
-    await fetch('https://chapter14-dada8-default-rtdb.firebaseio.com/orders.json', {
-      method: 'POST',
-      body: JSON.stringify({
-        user: userData,
-        orderedItems: cartCtx.items,
-      }),
-    });
-    setIsSubmitting(false);
-    setDidSubmit(true);
-    cartCtx.clearCart();
+  
+    try {
+      const orderData = {
+        name: userData.name,
+        street: userData.street,
+        postalCode: userData.postalCode,
+        city: userData.city,
+      };
+  
+      await trpc.order.createOrder.mutate(orderData);
+  
+      setIsSubmitting(false);
+      setDidSubmit(true);
+      cartCtx.clearCart();
+    } catch (error) {
+      console.error(error);
+      // Handle the error case, such as showing an error message to the user
+    }
+    
   };
 
   const cartItems = (

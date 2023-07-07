@@ -29,6 +29,7 @@ model Recipe {
   price              Float       @default(0.0)
   customerId         Int
   customer           Customer    @relation(fields: [customerId], references: [id])
+  
 }
 
 model Customer {
@@ -38,4 +39,13 @@ model Customer {
   address      String
   phoneNumber  String
   recipes      Recipe[]
+}
+
+model Order {
+  id                 Int          @id @default(autoincrement())
+  name               String
+  street             String
+  postalCode         String
+  city               String
+  
 }
